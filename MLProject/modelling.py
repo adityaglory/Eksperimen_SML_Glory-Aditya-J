@@ -23,11 +23,13 @@ def train_model():
         rf_model.fit(X_train, y_train)
         
         score = rf_model.score(X_test, y_test)
-        print(f"Model training completed in CI Pipeline! Accuracy: {score:.4f}")
+        print(f"Model Akurasi: {score:.4f}")
         
         mlflow.sklearn.log_model(rf_model, "model")
         
-        with open("run_id.txt", "w") as f:
+        workspace_dir = os.environ.get("GITHUB_WORKSPACE", ".")
+        run_id_path = os.path.join(workspace_dir, "MLProject", "run_id.txt")
+        with open(run_id_path, "w") as f:
             f.write(run.info.run_id)
 
 if __name__ == "__main__":
