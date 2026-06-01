@@ -9,6 +9,8 @@ on:
 jobs:
   build-and-push-docker:
     runs-on: ubuntu-latest
+    env:                                      
+      MLFLOW_ALLOW_FILE_STORE: "true"
 
     steps:
       - name: Run actions/checkout@v4
