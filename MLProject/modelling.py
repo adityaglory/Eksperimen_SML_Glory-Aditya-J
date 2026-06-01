@@ -9,7 +9,6 @@ def train_model():
     train_path = os.path.join(BASE_DIR, 'bank_churn_preprocessing', 'train.csv')
     test_path = os.path.join(BASE_DIR, 'bank_churn_preprocessing', 'test.csv')
     
-    print("Loading data...")
     train_data = pd.read_csv(train_path)
     test_data = pd.read_csv(test_path)
     
@@ -18,9 +17,6 @@ def train_model():
     X_test = test_data.drop('Exited', axis=1)
     y_test = test_data['Exited']
 
-    os.environ["MLFLOW_ALLOW_FILE_STORE"] = "true"
-    
-    mlflow.set_tracking_uri("file:./mlruns")
     mlflow.set_experiment("Bank_Churn_Prediction")
 
     mlflow.sklearn.autolog()
@@ -30,7 +26,7 @@ def train_model():
         rf_model.fit(X_train, y_train)
         
         score = rf_model.score(X_test, y_test)
-        print(f"Model trained successfully in CI Pipeline! Accuracy: {score:.4f}")
+        print(f"Model training completed in CI Pipeline! Accuracy: {score:.4f}")
         
         mlflow.sklearn.log_model(rf_model, "model")
         
