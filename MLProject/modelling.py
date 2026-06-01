@@ -18,6 +18,8 @@ def train_model():
     X_test = test_data.drop('Exited', axis=1)
     y_test = test_data['Exited']
 
+    os.environ["MLFLOW_ALLOW_FILE_STORE"] = "true"
+    
     mlflow.set_tracking_uri("file:./mlruns")
     mlflow.set_experiment("Bank_Churn_Prediction")
 
