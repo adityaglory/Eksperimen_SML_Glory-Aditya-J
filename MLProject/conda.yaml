@@ -1,0 +1,10 @@
+name: bank_churn_env
+channels:
+  - defaults
+dependencies:
+  - python=3.12.7
+  - pip
+  - pip:
+    - pandas
+    - scikit-learn
+    - mlflow

@@ -1,0 +1,10 @@
+mlruns/
+mlartifacts/
+MLProject/mlruns/
+MLProject/mlartifacts/
+*.pkl
+__pycache__/
+*.pyc
+venv/
+env/
+.env
