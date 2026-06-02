@@ -28,8 +28,7 @@ jobs:
 
       - name: Train Model
         run: |
-          cd MLProject
-          python modelling.py
+          mlflow run MLProject --env-manager=local
           
       - name: Get Run ID
         id: get_run_id

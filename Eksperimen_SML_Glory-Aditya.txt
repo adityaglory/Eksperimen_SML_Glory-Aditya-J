@@ -1,0 +1,21 @@
+Nama: Glory Aditya Jaya
+
+=== TAUTAN PENTING ===
+- Link Repositori GitHub Kriteria 1: https://github.com/adityaglory/Eksperimen-SML-adityaglory
+
+- Link Repositori GitHub Kriteria 3: https://github.com/adityaglory/Eksperimen_SML_Glory-Aditya-J
+
+- Link DagsHub: https://dagshub.com/adityaglory/SML-repo
+
+=== LAPORAN EKSPERIMEN MLFLOW ===
+Berdasarkan hasil eksperimen tracking menggunakan MLflow di DagsHub, berikut adalah rinciannya:
+
+1. Model Terbaik yang dipilih: Random Forest Classifier
+2. Metrik Kinerja Model Terbaik:
+   - Accuracy : 0.86
+   - F1-Score : 0.84
+
+3. Hyperparameter Terbaik yang digunakan:
+   - max_depth = 10
+   - n_estimators = 100
+   - random_state = 42
