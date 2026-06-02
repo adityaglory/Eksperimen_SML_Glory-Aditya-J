@@ -18,6 +18,8 @@ def train_model():
     X_test = test_data.drop('Exited', axis=1)
     y_test = test_data['Exited']
 
+    mlflow.sklearn.autolog()
+
     with mlflow.start_run() as run:
         rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
         rf_model.fit(X_train, y_train)
@@ -25,14 +27,8 @@ def train_model():
         score = rf_model.score(X_test, y_test)
         print(f"Model Akurasi: {score:.4f}")
         
-        mlflow.sklearn.log_model(rf_model, "model")
-        
-        if "GITHUB_WORKSPACE" in os.environ:
-            save_path = os.path.join(os.environ["GITHUB_WORKSPACE"], "MLProject", "run_id.txt")
-        else:
-            save_path = "run_id.txt"
-            
-        with open(save_path, "w") as f:
+        run_id_path = os.path.join(BASE_DIR, "run_id.txt")
+        with open(run_id_path, "w") as f:
             f.write(run.info.run_id)
 
 if __name__ == "__main__":
