@@ -27,7 +27,12 @@ def train_model():
         
         mlflow.sklearn.log_model(rf_model, "model")
         
-        with open("run_id.txt", "w") as f:
+        if "GITHUB_WORKSPACE" in os.environ:
+            save_path = os.path.join(os.environ["GITHUB_WORKSPACE"], "MLProject", "run_id.txt")
+        else:
+            save_path = "run_id.txt"
+            
+        with open(save_path, "w") as f:
             f.write(run.info.run_id)
 
 if __name__ == "__main__":
