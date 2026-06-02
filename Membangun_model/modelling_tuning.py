@@ -4,16 +4,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import mlflow
 import mlflow.sklearn
-import dagshub
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report
 
-REPO_OWNER = "adityaglory" 
-REPO_NAME = "SML-repo"
-
-dagshub.init(repo_owner=REPO_OWNER, repo_name=REPO_NAME, mlflow=True)
-mlflow.set_experiment("Bank_Churn_Prediction_Advance")
+mlflow.set_tracking_uri("file:./mlruns")
+mlflow.set_experiment("Bank_Churn_Prediction_Tuning")
 
 def train_and_tune_model():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -40,7 +36,7 @@ def train_and_tune_model():
     rf = RandomForestClassifier(random_state=42)
     grid_search = GridSearchCV(estimator=rf, param_grid=param_grid, cv=3, n_jobs=-1, verbose=1)
     
-    with mlflow.start_run(run_name="RandomForest_Tuned_DagsHub"):
+    with mlflow.start_run(run_name="RandomForest_Tuned_Local"):
         grid_search.fit(X_train, y_train)
         best_model = grid_search.best_estimator_
         y_pred = best_model.predict(X_test)
@@ -73,7 +69,7 @@ def train_and_tune_model():
         signature = mlflow.models.signature.infer_signature(X_test, y_pred)
         mlflow.sklearn.log_model(sk_model=best_model, artifact_path="model", signature=signature)
         
-        print("All logs (params, metrics, model, artifacts) sent to DagsHub successfully!")
+        print("All logs (params, metrics, model, artifacts) saved locally!")
 
 if __name__ == "__main__":
     train_and_tune_model()
