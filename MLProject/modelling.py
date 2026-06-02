@@ -18,9 +18,6 @@ def train_model():
     X_test = test_data.drop('Exited', axis=1)
     y_test = test_data['Exited']
 
-    os.environ["MLFLOW_ALLOW_FILE_STORE"] = "true"
-    mlflow.set_tracking_uri("file:./mlruns")
-
     with mlflow.start_run() as run:
         rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
         rf_model.fit(X_train, y_train)
